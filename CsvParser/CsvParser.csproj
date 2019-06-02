@@ -15,9 +15,7 @@
   </Target>
   
   <ItemGroup>
-	<None Include="Marvel.csv">
-	<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</None>
+	<EmbeddedResource Include="Marvel.csv" />
   </ItemGroup>
   
 </Project>
