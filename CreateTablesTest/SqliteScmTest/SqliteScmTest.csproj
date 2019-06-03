@@ -13,7 +13,12 @@
 	<PackageReference Include="Microsoft.Data.Sqlite" Version="2.2.0" />
 	<PackageReference Include="System.Data.Common" Version="4.3.0" />
 	<PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
-	<ProjectReference Include="../WidgetScmDataAccess/WidgetScmDataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="WidgetScmDataAccess">
+      <HintPath>..\WidgetScmDataAccess\bin\Debug\netstandard1.2\WidgetScmDataAccess.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
