@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Data.Sqlite;
 
 namespace SqliteConsoleTest
 {
@@ -14,8 +15,6 @@ namespace SqliteConsoleTest
 				long result = (long)command.ExecuteScalar();
 				Console.WriteLine($"Command output: {result}");
 			}
-			
-            Console.WriteLine("Hello World!");
         }
     }
 }
