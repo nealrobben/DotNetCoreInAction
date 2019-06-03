@@ -1,3 +1,7 @@
+using System;
+using System.Data.Common;
+using Microsoft.Data.Sqlite;
+
 namespace SqliteScmTest
 {
 	public class SampleScmDataFixture : IDisposable
