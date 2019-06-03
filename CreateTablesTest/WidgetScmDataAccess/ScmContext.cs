@@ -123,5 +123,32 @@ namespace WidgetScmDataAccess
             }
             return partCommands;
         }
+
+        public void UpdateInventoryItem(int partTypeId, int count, DbTransaction transaction)
+        {
+            var command = connection.CreateCommand();
+            if (transaction != null)
+                command.Transaction = transaction;
+            command.CommandText = @"UPDATE InventoryItem SET Count=@count WHERE PartTypeId=@partTypeId";
+            AddParameter(command, "@count", count);
+            AddParameter(command, "@partTypeId", partTypeId);
+            command.ExecuteNonQuery();
+        }
+
+        public void DeletePartCommand(int id, DbTransaction transaction)
+        {
+            var command = connection.CreateCommand();
+            if (transaction != null)
+                command.Transaction = transaction;
+
+            command.CommandText = @"DELETE FROM PartCommand WHERE Id=@id";
+            AddParameter(command, "@id", id);
+            command.ExecuteNonQuery();
+        }
+
+        public DbTransaction BeginTransaction()
+        {
+            return connection.BeginTransaction();
+        }
     }
 }
