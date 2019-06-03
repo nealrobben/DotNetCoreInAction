@@ -150,5 +150,44 @@ namespace WidgetScmDataAccess
         {
             return connection.BeginTransaction();
         }
+
+        public void CreateOrder(Order order)
+        {
+            var transaction = connection.BeginTransaction();
+            try
+            {
+                var command = connection.CreateCommand();
+                command.Transaction = transaction;
+                command.CommandText = @"INSERT INTO [Order]
+                                        (SupplierId, PartTypeId, PartCount,
+                                        PlacedDate) VALUES (@supplierId,
+                                        @partTypeId, @partCount, @placedDate);
+                                        SELECT last_insert_rowid();";
+                AddParameter(command, "@supplierId", order.SupplierId);
+                AddParameter(command, "@partTypeId", order.PartTypeId);
+                AddParameter(command, "@partCount", order.PartCount);
+                AddParameter(command, "@placedDate", order.PlacedDate);
+                long orderId = (long)command.ExecuteScalar();
+                order.Id = (int)orderId;
+                command = connection.CreateCommand();
+                command.Transaction = transaction;
+                command.CommandText = @"INSERT INTO SendEmailCommand
+                                        ([To], Subject, Body) VALUES
+                                        (@To, @Subject, @Body)";
+                AddParameter(command, "@To",
+                order.Supplier.Email);
+                AddParameter(command, "@Subject",
+                $"Order #{orderId} for {order.Part.Name}");
+                AddParameter(command, "@Body", $"Please send {order.PartCount}" +
+                $" items of {order.Part.Name} to Widget Corp");
+                command.ExecuteNonQuery();
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
+        }
     }
 }
