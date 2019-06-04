@@ -6,7 +6,9 @@
   </PropertyGroup>
   
   <ItemGroup>
-	<PackageReference Include="Microsoft.DocAsCode.MarkdownLite" Version="2.42.4" />
+	<None Include="test.md">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
   </ItemGroup>
 
 </Project>
