@@ -1,8 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>
+      ACController.Root
+    </RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Resx Include="strings.restext" />
+    <EmbeddedResource Include="strings.resources" />
+  </ItemGroup>
+
+  <Target Name="BuildResources">
+    <GenerateResource ExecuteAsTool="false"
+                      Sources="@(Resx)">
+    </GenerateResource>
+  </Target>
 
 </Project>

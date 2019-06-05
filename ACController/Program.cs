@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection;
+using System.Resources;
 
 namespace ACController
 {
@@ -6,7 +8,12 @@ namespace ACController
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Exhaust Air Temp: " + TempControl.ExhaustAirTemp);
+            var resMan = new ResourceManager(
+                "ACController.strings",
+                typeof(Program).GetTypeInfo().Assembly);
+            Console.WriteLine(
+                resMan.GetString("ExhaustAirTemp") +
+                TempControl.ExhaustAirTemp);
         }
     }
 }
